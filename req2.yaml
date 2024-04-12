@@ -10,15 +10,15 @@
         parents: ip access-list extended REQ2
         lines:
           - permit icmp host 192.168.20.20 host 192.168.10.10 echo
-          - permit icmp host 192.168.10.10 any echo-reply
+          - permit icmp host 192.168.20.20 any echo-reply
           - deny icmp any any echo
           - permit ip any any
 
-    - name: Apply new ACL to R1 interface
+    - name: Apply new ACL to R1 Eth0/1
       ios_config:
-        parents: interface <interface_name> # Замените <interface_name> на имя интерфейса, к которому применяется ACL
+        parents: interface Eth0/1
         lines:
-          - ip access-group REQ2 in
+          - ip access-group REQ2 out
 
     - name: Check result
       ios_command:
